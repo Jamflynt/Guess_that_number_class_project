@@ -70,11 +70,51 @@ while (restartGame) {
         // Tries to covert the user's guess into a number 
         guess = parseInt(guess);
 
+        // Verify the user's guess is a number greater than zero and less than or equal to the range they set
+        while (!guess || guess < 1 || guess > rangeNum) {
+            guess = parseInt(prompt(`Please enter a number from 1 to ${rangeNum}`))
+        }
 
+        // Remove  a life
+        lives--;
 
-        // Move when needed
-        break;   
+        // if else
+        if (guess === randomNum) {
+            alert(`CONGRATULATIONS YOU GUESSED THE CORRECT NUMBER: ${randomNum}`);
+            break;
+            // Check if the user has any lives left. If not, then the came ends and the number is displayed to the user.
+        } else if (lives === 0) {
+            alert(`Sorry but you have run out of lives. The number was ${randomNum}`)
+            break;
+            // Checks to see if the guess was to low and prompts to user to answer again.
+        } else if (guess < randomNum) {
+            guess = prompt(`Too low. You have ${lives} live(s) left.`);
+        // Cael's Cat cheat code
+        // } else if (guess == cat) {
+        //     lives += 2;
+        //     guess = prompt(`You found Cael's Cat. You gained an extra life. You have ${lives} live(s) left.`)
+        // The only other possibility is the user's guess was too high so the user is prompted again. 
+        } else {
+            guess = prompt(`Too high. You have ${lives} live(s) left.`);
+        }
     }
-    // Remove when needed 
-    restartGame = false;
+    
+    // Ask the user with option to play again
+    playAgain = prompt('Would you like to play again. Y for yes. N for no.');
+    
+    // Loop continues until user submits a valid response
+    while(true){
+        // Check if the user's answer is no (eg. N for no)
+        if (playAgain.toUpperCase() === 'N'){
+            alert('Thanks for playing!');
+            restartGame = false;
+            break;
+        // Check if the users answer is yes (e.g. Y for yes) 
+        } else if (playAgain.toUpperCase() === 'Y'){
+            // The game restarts
+            break;
+        } else {
+            playAgain = prompt('Please enter Y or N');
+        }
+    }
 };
